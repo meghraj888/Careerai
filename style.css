@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career & Resume Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <style>
+        /* Custom styles */
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark {
+            --tw-bg-opacity: 1;
+            background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+            color: #f3f4f6;
+        }
+        
+        .dark .feature-card {
+            background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+        }
+        
+        .dark .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+        }
+        
+        .dark .text-gray-800 {
+            --tw-text-opacity: 1;
+            color: rgba(209, 213, 219, var(--tw-text-opacity));
+        }
+        
+        .dark .text-gray-600 {
+            --tw-text-opacity: 1;
+            color: rgba(156, 163, 175, var(--tw-text-opacity));
+        }
+        
+        .dark .border-gray-200 {
+            --tw-border-opacity: 1;
+            border-color: rgba(55, 65, 81, var(--tw-border-opacity));
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        #roadmapContainer .step {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        #roadmapContainer .step:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #4f46e5;
+        }
+
+        #roadmapContainer .step:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 20px;
+            height: calc(100% - 8px);
+            width: 2px;
+            background: #4f46e5;
+        }
+
+        #roadmapContainer .step:last-child:after {
+            display: none;
+        }
+
+        .ai-typing::after {
+            content: "|";
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* For PDF export optimization */
+        @media print {
+            .no-print {
+                display: none;
+            }
+            
+            .page-break {
+                page-break-after: always;
+            }
+            
+            body {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md transition-colors duration-300 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <i class="ri-robot-2-line text-blue-600 text-3xl mr-2"></i>
+                        <span class="text-xl font-bold">CareerAI</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 transition-colors duration-300">
+                        <i class="ri-sun-line text-xl"></i>
+                    </button>
+                    <div class="relative" id="userMenuContainer">
+                        <button id="userMenu" class="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 transition-colors duration-300">
+                            <i class="ri-user-line text-xl"></i>
+                            <span>Sign In</span>
+                        </button>
+                        <div id="userMenuDropdown" class="absolute right-0 mt-2 bg-white shadow-lg rounded-md py-2 w-48 hidden">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+                                <i class="ri-google-fill mr-2"></i> Sign in with Google
+                            </a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+                                <i class="ri-github-fill mr-2"></i> Sign in with GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="py-16 md:py-24 bg-gradient-to-br from-blue-100 to-purple-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+                <span class="gradient-text">AI-Powered</span> Career Success
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Optimize your resume, discover your ideal career path, create personalized learning roadmaps, and prepare for interviews with our advanced AI tools.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#features" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-medium shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center">
+                    <i class="ri-rocket-line mr-2"></i> Get Started
+                </a>
+                <a href="#how-it-works" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg text-lg font-medium transition duration-300 flex items-center justify-center">
+                    <i class="ri-information-line mr-2"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Overview -->
+    <section id="features" class="py-12 md:py-24 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Supercharge Your Career with AI</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1: Resume Fixer -->
+                <div class="feature-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                            <i class="ri-file-text-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">AI Resume Fixer</h3>
+                        <p class="text-gray-600">Get your resume optimized for ATS systems with AI-powered rewriting and formatting.</p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <a href="#resume-section" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                            Try it now <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Feature 2: Career Path -->
+                <div class="feature-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+                            <i class="ri-road-map-line text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Career Path Suggestion</h3>
+                        <p class="text-gray-600">Discover optimal career paths based on your skills, experience, and professional goals.</p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <a href="#career-path-section" class="text-purple-600 hover:text-purple-800 font-medium flex items-center">
+                            Try it now <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Feature 3: Learning Roadmap -->
+                <div class="feature-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                            <i class="ri-route-line text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Learning Roadmap</h3>
+                        <p class="text-gray-600">Get personalized step-by-step learning plans to acquire the skills you need for career advancement.</p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <a href="#roadmap-section" class="text-green-600 hover:text-green-800 font-medium flex items-center">
+                            Try it now <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Feature 4: Interview Questions -->
+                <div class="feature-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <div class="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center mb-4">
+                            <i class="ri-question-answer-line text-2xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Interview Questions</h3>
+                        <p class="text-gray-600">Generate custom interview questions based on your resume and target job position.</p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <a href="#interview-section" class="text-red-600 hover:text-red-800 font-medium flex items-center">
+                            Try it now <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section id="how-it-works" class="py-12 md:py-24 bg-gray-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How It Works</h2>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
+                <div class="flex-1 max-w-md">
+                    <div class="flex items-start mb-6">
+                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mr-4">
+                            <span class="text-white font-bold">1</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Upload Your Resume</h3>
+                            <p class="text-gray-600">Paste your existing resume or upload a file to get started.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mr-4">
+                            <span class="text-white font-bold">2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">AI Analysis</h3>
+                            <p class="text-gray-600">Our advanced AI analyzes your skills, experience, and career objectives.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mr-4">
+                            <span class="text-white font-bold">3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Get Personalized Results</h3>
+                            <p class="text-gray-600">Receive optimized resume, career suggestions, learning paths, and interview preparation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mr-4">
+                            <span class="text-white font-bold">4</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Export & Apply</h3>
+                            <p class="text-gray-600">Download your optimized materials as PDF and take the next step in your career.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 max-w-md bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <div class="mb-4 flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="text-sm text-gray-500">careerAI.app</div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-robot-line text-blue-600"></i>
+                            </div>
+                            <p class="bg-blue-50 rounded-lg py-2 px-4 max-w-xs">Hello! I'll help you optimize your resume. Paste it here to get started.</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-end mb-3">
+                            <p class="bg-gray-100 rounded-lg py-2 px-4 max-w-xs">I have 5 years experience as a software developer with skills in JavaScript, React, and Node.js.</p>
+                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center ml-3">
+                                <i class="ri-user-line text-gray-600"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-robot-line text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="bg-blue-50 rounded-lg py-2 px-4 max-w-xs mb-2 ai-typing">Analyzing your experience...</p>
+                                <p class="text-xs text-gray-500">AI is working...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Sections -->
+    <!-- 1. Resume Fixer Section -->
+    <section id="resume-section" class="py-12 md:py-24 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-file-text-line text-3xl text-blue-600"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">AI Resume Optimizer</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Transform your resume into an ATS-friendly document that highlights your strengths and achievements with our AI-powered optimization tool.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Your Original Resume</h3>
+                    <textarea id="originalResume" class="w-full p-4 border border-gray-300 rounded-lg mb-4" placeholder="Paste your resume content here..."></textarea>
+                    
+                    <h3 class="text-xl font-bold mb-2">Target Job Title (Optional)</h3>
+                    <input type="text" id="jobTitle" class="w-full p-4 border border-gray-300 rounded-lg mb-6" placeholder="e.g. Senior Software Engineer">
+                    
+                    <button id="optimizeResumeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center">
+                        <i class="ri-magic-line mr-2"></i> Optimize Resume
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">AI-Optimized Resume</h3>
+                    <div id="optimizedResumeContainer" class="border border-gray-300 rounded-lg p-4 min-h-[250px] mb-4 bg-gray-50">
+                        <p class="text-gray-500 italic" id="placeholderText">Your optimized resume will appear here after processing...</p>
+                        <div id="optimizedResume" class="hidden"></div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                        <button id="downloadResumeBtn" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center disabled:bg-gray-400" disabled>
+                            <i class="ri-download-line mr-2"></i> Download as PDF
+                        </button>
+                        <button id="copyResumeBtn" class="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-3 px-4 rounded-lg font-medium transition duration-300 flex items-center justify-center disabled:border-gray-400 disabled:text-gray-400" disabled>
+                            <i class="ri-file-copy-line mr-2"></i> Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Career Path Section -->
+    <section id="career-path-section" class="py-12 md:py-24 bg-gray-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="h-16 w-16 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-road-map-line text-3xl text-purple-600"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Career Path Finder</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Discover the best career paths based on your skills, experience, and interests with our AI-powered career guidance tool.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Your Skills & Experience</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Skills (Separate with commas)</label>
+                        <input type="text" id="skills" class="w-full p-4 border border-gray-300 rounded-lg" placeholder="e.g. JavaScript, Python, Project Management">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Experience Level</label>
+                        <select id="experienceLevel" class="w-full p-4 border border-gray-300 rounded-lg">
+                            <option value="entry">Entry Level (0-2 years)</option>
+                            <option value="mid">Mid-Level (3-5 years)</option>
+                            <option value="senior">Senior (6-10 years)</option>
+                            <option value="expert">Expert (10+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">Career Goals & Interests</label>
+                        <textarea id="careerGoals" class="w-full p-4 border border-gray-300 rounded-lg" placeholder="Describe your career interests and goals..."></textarea>
+                    </div>
+                    
+                    <button id="findCareerPathBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center">
+                        <i class="ri-search-line mr-2"></i> Find Career Paths
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Recommended Career Paths</h3>
+                    <div id="careerPathsContainer" class="border border-gray-300 rounded-lg p-4 min-h-[300px] mb-4 bg-gray-50">
+                        <p class="text-gray-500 italic" id="careerPathPlaceholder">Your career path recommendations will appear here...</p>
+                        <div id="careerPaths" class="hidden space-y-4"></div>
+                    </div>
+                    
+                    <button id="downloadCareerPathBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center disabled:bg-gray-400" disabled>
+                        <i class="ri-download-line mr-2"></i> Download Career Plan as PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Learning Roadmap Section -->
+    <section id="roadmap-section" class="py-12 md:py-24 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-route-line text-3xl text-green-600"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Learning Roadmap Generator</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Get a personalized step-by-step learning plan to acquire new skills and advance your career.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Your Learning Goals</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Target Skill or Role</label>
+                        <input type="text" id="targetSkill" class="w-full p-4 border border-gray-300 rounded-lg" placeholder="e.g. Full Stack Developer, Data Scientist">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Current Knowledge Level</label>
+                        <select id="knowledgeLevel" class="w-full p-4 border border-gray-300 rounded-lg">
+                            <option value="beginner">Beginner (No experience)</option>
+                            <option value="intermediate">Intermediate (Some familiarity)</option>
+                            <option value="advanced">Advanced (Proficient, seeking mastery)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">Timeline</label>
+                        <select id="timeline" class="w-full p-4 border border-gray-300 rounded-lg">
+                            <option value="1month">1 Month (Intensive)</option>
+                            <option value="3months">3 Months</option>
+                            <option value="6months" selected>6 Months</option>
+                            <option value="1year">1 Year</option>
+                        </select>
+                    </div>
+                    
+                    <button id="generateRoadmapBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center">
+                        <i class="ri-road-map-line mr-2"></i> Generate Learning Roadmap
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Your Personalized Learning Roadmap</h3>
+                    <div id="roadmapContainer" class="border border-gray-300 rounded-lg p-6 min-h-[300px] mb-4 bg-gray-50">
+                        <p class="text-gray-500 italic" id="roadmapPlaceholder">Your personalized learning roadmap will appear here...</p>
+                        <div id="roadmap" class="hidden space-y-4"></div>
+                    </div>
+                    
+                    <button id="downloadRoadmapBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center disabled:bg-gray-400" disabled>
+                        <i class="ri-download-line mr-2"></i> Download Roadmap as PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Interview Questions Section -->
+    <section id="interview-section" class="py-12 md:py-24 bg-gray-100 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="h-16 w-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-question-answer-line text-3xl text-red-600"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Interview Question Generator</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Prepare for your interviews with AI-generated questions tailored to your resume and target position.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Generate Interview Questions</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Target Job Title</label>
+                        <input type="text" id="interviewJobTitle" class="w-full p-4 border border-gray-300 rounded-lg" placeholder="e.g. Frontend Developer, Product Manager">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Key Skills (Separate with commas)</label>
+                        <input type="text" id="interviewSkills" class="w-full p-4 border border-gray-300 rounded-lg" placeholder="e.g. React, TypeScript, UI Design">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">Experience Summary</label>
+                        <textarea id="experienceSummary" class="w-full p-4 border border-gray-300 rounded-lg" placeholder="Provide a brief summary of your relevant experience..."></textarea>
+                    </div>
+                    
+                    <button id="generateQuestionsBtn" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg text-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center">
+                        <i class="ri-question-line mr-2"></i> Generate Interview Questions
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">Personalized Interview Questions</h3>
+                    <div id="questionsContainer" class="border border-gray-300 rounded-lg p-4 min-h-[300px] mb-4 bg-gray-50">
+                        <p class="text-gray-500 italic" id="questionsPlaceholder">Your interview questions will appear here...</p>
+                        <div id="interviewQuestions" class="hidden space-y-4"></div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                        <button id="downloadQuestionsBtn" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center disabled:bg-gray-400" disabled>
+                            <i class="ri-download-line mr-2"></i> Download as PDF
+                        </button>
+                        <button id="copyQuestionsBtn" class="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-3 px-4 rounded-lg font-medium transition duration-300 flex items-center justify-center disabled:border-gray-400 disabled:text-gray-400" disabled>
+                            <i class="ri-file-copy-line mr-2"></i> Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-12 md:py-24 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Success Stories</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="ri-user-line text-xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <p class="text-sm text-gray-600">Software Engineer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "The AI Resume Optimizer helped me completely transform my resume. I went from getting no responses to landing interviews at three top tech companies within two weeks!"
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                            <i class="ri-user-line text-xl text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <p class="text-sm text-gray-600">UX Designer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "The career path suggestions were amazingly accurate. The AI identified skills I needed to develop and helped me create a plan that led to a 40% salary increase!"
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                            <i class="ri-user-line text-xl text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">David Rodriguez</h4>
+                            <p class="text-sm text-gray-600">Data Analyst</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "The interview questions generator was spot-on! Many of the AI-generated questions came up in my actual interviews, and I was fully prepared to answer them confidently."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 md:py-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Accelerate Your Career?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Join thousands of professionals who have transformed their careers with our AI-powered tools.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#features" class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg text-lg font-medium shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center">
+                    <i class="ri-rocket-line mr-2"></i> Get Started Now
+                </a>
+                <a href="#" class="border border-white text-white hover:bg-white hover:bg-opacity-10 px-8 py-3 rounded-lg text-lg font-medium transition duration-300 flex items-center justify-center">
+                    <i class="ri-question-line mr-2"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-800 text-white transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="ri-robot-2-line text-blue-400 text-3xl mr-2"></i>
+                        <span class="text-xl font-bold">CareerAI</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        AI-powered career development platform to help you land your dream job.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="ri-twitter-x-line text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="ri-linkedin-fill text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="ri-github-fill text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="ri-instagram-line text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Features</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#resume-section" class="text-gray-400 hover:text-white transition duration-300">Resume Optimizer</a></li>
+                        <li><a href="#career-path-section" class="text-gray-400 hover:text-white transition duration-300">Career Path Finder</a></li>
+                        <li><a href="#roadmap-section" class="text-gray-400 hover:text-white transition duration-300">Learning Roadmap</a></li>
+                        <li><a href="#interview-section" class="text-gray-400 hover:text-white transition duration-300">Interview Questions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Career Tips</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Interview Guides</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Resume Templates</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 CareerAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use user's system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            html.classList.add('dark');
+            themeIcon.classList.remove('ri-sun-line');
+            themeIcon.classList.add('ri-moon-line');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            
+            if (html.classList.contains('dark')) {
+                themeIcon.classList.remove('ri-sun-line');
+                themeIcon.classList.add('ri-moon-line');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('ri-moon-line');
+                themeIcon.classList.add('ri-sun-line');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // User Menu Dropdown
+        const userMenu = document.getElementById('userMenu');
+        const userMenuDropdown = document.getElementById('userMenuDropdown');
+        
+        userMenu.addEventListener('click', () => {
+            userMenuDropdown.classList.toggle('hidden');
+        });
+        
+        document.addEventListener('click', (event) => {
+            const userMenuContainer = document.getElementById('userMenuContainer');
+            if (!userMenuContainer.contains(event.target)) {
+                userMenuDropdown.classList.add('hidden');
+            }
+        });
+        
+        // AI Resume Fixer Simulation
+        const optimizeResumeBtn = document.getElementById('optimizeResumeBtn');
+        const originalResume = document.getElementById('originalResume');
+        const optimizedResume = document.getElementById('optimizedResume');
+        const placeholderText = document.getElementById('placeholderText');
+        const downloadResumeBtn = document.getElementById('downloadResumeBtn');
+        const copyResumeBtn = document.getElementById('copyResumeBtn');
+        
+        optimizeResumeBtn.addEventListener('click', () => {
+            if (!originalResume.value.trim()) {
+                alert('Please paste your resume first!');
+                return;
+            }
+            
+            placeholderText.textContent = 'AI is optimizing your resume...';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                const jobTitle = document.getElementById('jobTitle').value.trim() || 'Software Developer';
+                
+                // Generate an optimized resume based on the input
+                const optimizedContent = generateOptimizedResume(originalResume.value, jobTitle);
+                
+                // Display the optimized resume
+                optimizedResume.innerHTML = optimizedContent;
+                placeholderText.classList.add('hidden');
+                optimizedResume.classList.remove('hidden');
+                
+                // Enable the download and copy buttons
+                downloadResumeBtn.disabled = false;
+                copyResumeBtn.disabled = false;
+            }, 2000);
+        });
+        
+        function generateOptimizedResume(original, jobTitle) {
+            // This function simulates AI optimization
+            // In a real app, this would call the OpenAI API
+            
+            // Create a simple optimized version for demo purposes
+            const skills = ['JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs'];
+            if (original.toLowerCase().includes('python')) skills.push('Python');
+            if (original.toLowerCase().includes('java')) skills.push('Java');
+            if (original.toLowerCase().includes('sql')) skills.push('SQL', 'Database Management');
+            
+            const html = `
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-bold">PROFESSIONAL SUMMARY</h3>
+                        <p>Highly skilled ${jobTitle} with a proven track record of developing scalable applications and optimizing system performance. Dedicated to delivering high-quality code while adhering to best practices and industry standards.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold">SKILLS</h3>
+                        <div class="flex flex-wrap gap-2">
+                            ${skills.map(skill => `<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold">EXPERIENCE</h3>
+                        <div class="mb-3">
+                            <div class="flex justify-between font-medium">
+                                <span>Senior ${jobTitle}</span>
+                                <span>2020 - Present</span>
+                            </div>
+                            <p class="text-gray-600 italic">TechCorp Inc.</p>
+                            <ul class="list-disc pl-5 mt-2 text-gray-700">
+                                <li>Led development of mission-critical features that increased user engagement by 45%</li>
+                                <li>Optimized application performance resulting in 30% faster load times</li>
+                                <li>Mentored junior developers and conducted code reviews to maintain code quality</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold">EDUCATION</h3>
+                        <div>
+                            <div class="flex justify-between font-medium">
+                                <span>Bachelor of Science in Computer Science</span>
+                                <span>2016</span>
+                            </div>
+                            <p class="text-gray-600 italic">University of Technology</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 bg-green-50 border border-green-200 rounded-md">
+                        <h4 class="font-bold text-green-700 flex items-center">
+                            <i class="ri-check-line mr-2"></i> ATS Optimization Complete
+                        </h4>
+                        <p class="text-green-700 text-sm">This resume is now optimized for Applicant Tracking Systems (ATS) with industry-specific keywords and proper formatting.</p>
+                    </div>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        copyResumeBtn.addEventListener('click', () => {
+            const content = optimizedResume.textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Resume copied to clipboard!');
+            });
+        });
+        
+        // Career Path Finder Simulation
+        const findCareerPathBtn = document.getElementById('findCareerPathBtn');
+        const careerPathPlaceholder = document.getElementById('careerPathPlaceholder');
+        const careerPaths = document.getElementById('careerPaths');
+        const downloadCareerPathBtn = document.getElementById('downloadCareerPathBtn');
+        
+        findCareerPathBtn.addEventListener('click', () => {
+            const skills = document.getElementById('skills').value.trim();
+            const experienceLevel = document.getElementById('experienceLevel').value;
+            const careerGoals = document.getElementById('careerGoals').value.trim();
+            
+            if (!skills || !careerGoals) {
+                alert('Please fill in your skills and career goals!');
+                return;
+            }
+            
+            careerPathPlaceholder.textContent = 'Analyzing career paths...';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                // Generate career paths based on input
+                const careerPathsContent = generateCareerPaths(skills, experienceLevel, careerGoals);
+                
+                // Display the career paths
+                careerPaths.innerHTML = careerPathsContent;
+                careerPathPlaceholder.classList.add('hidden');
+                careerPaths.classList.remove('hidden');
+                
+                // Enable the download button
+                downloadCareerPathBtn.disabled = false;
+            }, 2000);
+        });
+        
+        function generateCareerPaths(skills, level, goals) {
+            // This function simulates AI career path generation
+            
+            const pathsHTML = `
+                <div class="space-y-6">
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-purple-800 mb-2">Primary Recommendation: Senior Full Stack Developer</h3>
+                        <p class="mb-3">Based on your experience level and skill set, you're well positioned for senior full stack development roles with leadership responsibilities.</p>
+                        <div class="mb-3">
+                            <span class="font-bold">Key Skills to Highlight:</span>
+                            <div class="flex flex-wrap gap-2 mt-1">
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">React</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Node.js</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">System Architecture</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <span class="font-bold">Potential Salary Range:</span>
+                            <span class="ml-2">$120,000 - $160,000</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="font-bold">Future Advancement:</span>
+                            <ul class="list-disc list-inside mt-1">
+                                <li>Tech Lead</li>
+                                <li>Engineering Manager</li>
+                                <li>CTO</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-blue-800 mb-2">Alternative Path: DevOps Engineer</h3>
+                        <p class="mb-3">Given your technical background, transitioning to DevOps could leverage your existing skills while opening new career opportunities.</p>
+                        <div class="mb-3">
+                            <span class="font-bold">Skills to Develop:</span>
+                            <div class="flex flex-wrap gap-2 mt-1">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Docker</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Kubernetes</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">CI/CD</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Cloud Platforms</span>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="font-bold">Transitional Steps:</span>
+                            <ul class="list-disc list-inside mt-1">
+                                <li>Obtain AWS or Azure certification</li>
+                                <li>Contribute to infrastructure projects</li>
+                                <li>Automate deployment processes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-green-800 mb-2">Emerging Opportunity: AI/ML Engineering</h3>
+                        <p class="mb-3">With your programming background, expanding into AI/ML could position you at the forefront of industry innovation.</p>
+                        <div class="mb-3">
+                            <span class="font-bold">Skills to Acquire:</span>
+                            <div class="flex flex-wrap gap-2 mt-1">
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Python</span>
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">TensorFlow/PyTorch</span>
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Data Science</span>
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">MLOps</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="font-bold">Long-term Benefits:</span>
+                            <ul class="list-disc list-inside mt-1">
+                                <li>Higher compensation potential</li>
+                                <li>Growing market demand</li>
+                                <li>Work on cutting-edge technology</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return pathsHTML;
+        }
+        
+        // Learning Roadmap Generator Simulation
+        const generateRoadmapBtn = document.getElementById('generateRoadmapBtn');
+        const roadmapPlaceholder = document.getElementById('roadmapPlaceholder');
+        const roadmap = document.getElementById('roadmap');
+        const downloadRoadmapBtn = document.getElementById('downloadRoadmapBtn');
+        
+        generateRoadmapBtn.addEventListener('click', () => {
+            const targetSkill = document.getElementById('targetSkill').value.trim();
+            const knowledgeLevel = document.getElementById('knowledgeLevel').value;
+            const timeline = document.getElementById('timeline').value;
+            
+            if (!targetSkill) {
+                alert('Please enter your target skill or role!');
+                return;
+            }
+            
+            roadmapPlaceholder.textContent = 'Generating your personalized learning roadmap...';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                // Generate roadmap based on input
+                const roadmapContent = generateLearningRoadmap(targetSkill, knowledgeLevel, timeline);
+                
+                // Display the roadmap
+                roadmap.innerHTML = roadmapContent;
+                roadmapPlaceholder.classList.add('hidden');
+                roadmap.classList.remove('hidden');
+                
+                // Enable the download button
+                downloadRoadmapBtn.disabled = false;
+            }, 2000);
+        });
+        
+        function generateLearningRoadmap(skill, level, timeline) {
+            // This function simulates AI roadmap generation
+            
+            // Generate a roadmap based on the target skill
+            let roadmapSteps = [];
+            
+            if (skill.toLowerCase().includes('developer') || skill.toLowerCase().includes('web') || skill.toLowerCase().includes('full stack')) {
+                roadmapSteps = [
+                    {title: 'HTML, CSS, and JavaScript Foundations', duration: '2 weeks', resources: ['MDN Web Docs', 'freeCodeCamp', 'Frontend Masters']},
+                    {title: 'Frontend Framework: React.js', duration: '4 weeks', resources: ['React Documentation', 'Udemy Course', 'Scrimba Interactive Tutorials']},
+                    {title: 'State Management & API Integration', duration: '3 weeks', resources: ['Redux Documentation', 'REST API Tutorials', 'Authentication Best Practices']},
+                    {title: 'Backend Development with Node.js', duration: '4 weeks', resources: ['Express.js Documentation', 'MongoDB University', 'API Design Patterns']},
+                    {title: 'Full Stack Project Development', duration: '6 weeks', resources: ['GitHub Project Board', 'Deployment with Vercel', 'CI/CD Integration']},
+                    {title: 'Advanced Topics & Specialization', duration: '4 weeks', resources: ['TypeScript Documentation', 'Next.js', 'Performance Optimization']}
+                ];
+            } else if (skill.toLowerCase().includes('data') || skill.toLowerCase().includes('scientist') || skill.toLowerCase().includes('analytics')) {
+                roadmapSteps = [
+                    {title: 'Programming Fundamentals with Python', duration: '3 weeks', resources: ['Python Documentation', 'DataCamp Courses', 'Kaggle Learn']},
+                    {title: 'Data Analysis & Visualization', duration: '4 weeks', resources: ['Pandas Documentation', 'Matplotlib Tutorials', 'Exploratory Data Analysis']},
+                    {title: 'Statistical Analysis', duration: '3 weeks', resources: ['Statistics for Data Science', 'Hypothesis Testing', 'Experimental Design']},
+                    {title: 'Machine Learning Foundations', duration: '5 weeks', resources: ['Scikit-learn Documentation', 'ML Algorithms', 'Feature Engineering']},
+                    {title: 'Deep Learning & Neural Networks', duration: '4 weeks', resources: ['TensorFlow Tutorials', 'Neural Network Architectures', 'Transfer Learning']},
+                    {title: 'Applied Data Science Projects', duration: '6 weeks', resources: ['Kaggle Competitions', 'GitHub Portfolio', 'Real-world Problem Solving']}
+                ];
+            } else {
+                roadmapSteps = [
+                    {title: 'Foundations & Core Concepts', duration: '3 weeks', resources: ['Online Courses', 'Documentation', 'Introductory Books']},
+                    {title: 'Intermediate Skills Development', duration: '4 weeks', resources: ['Practice Projects', 'Community Forums', 'Tutorials']},
+                    {title: 'Advanced Techniques', duration: '5 weeks', resources: ['Specialized Training', 'Case Studies', 'Expert Articles']},
+                    {title: 'Applied Projects & Portfolio Building', duration: '6 weeks', resources: ['Personal Projects', 'GitHub Repository', 'Documentation']},
+                    {title: 'Industry-Specific Applications', duration: '4 weeks', resources: ['Industry Reports', 'Use Case Studies', 'Best Practices']},
+                    {title: 'Specialization & Expertise Development', duration: '6 weeks', resources: ['Advanced Coursework', 'Networking', 'Conference Presentations']}
+                ];
+            }
+            
+            // Adjust based on knowledge level
+            if (level === 'intermediate') {
+                roadmapSteps = roadmapSteps.slice(2);
+            } else if (level === 'advanced') {
+                roadmapSteps = roadmapSteps.slice(4);
+                roadmapSteps.push({
+                    title: 'Mastery & Innovation', 
+                    duration: '8 weeks', 
+                    resources: ['Research Papers', 'Contributing to Open Source', 'Creating Educational Content']
+                });
+            }
+            
+            // Adjust duration based on timeline
+            const timelineMultiplier = {
+                '1month': 0.5,
+                '3months': 0.8,
+                '6months': 1,
+                '1year': 1.5
+            };
+            
+            // Generate HTML for the roadmap
+            let roadmapHTML = '<div class="space-y-6">';
+            
+            // Add intro
+            roadmapHTML += `
+                <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-800">Your Personalized ${skill} Learning Roadmap</h3>
+                    <p class="text-sm text-green-700">This roadmap is customized for your ${level} level with a ${timeline.replace('months', '-month').replace('year', '-year')} timeline.</p>
+                </div>
+            `;
+            
+            // Add steps
+            roadmapHTML += '<div class="space-y-8 mt-6">';
+            
+            roadmapSteps.forEach((step, index) => {
+                roadmapHTML += `
+                    <div class="step">
+                        <h4 class="text-lg font-bold">${index + 1}. ${step.title}</h4>
+                        <div class="mt-2 text-sm">
+                            <span class="font-medium">Duration:</span> 
+                            <span>${step.duration}</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="font-medium text-sm">Recommended Resources:</span>
+                            <ul class="mt-1 list-disc list-inside text-sm">
+                                ${step.resources.map(resource => `<li>${resource}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Close divs
+            roadmapHTML += `
+                </div>
+                <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg mt-8">
+                    <h4 class="font-bold text-blue-800">Next Steps</h4>
+                    <p class="text-sm text-blue-700">
+                        To maximize your learning journey, consider joining online communities like Stack Overflow, GitHub, or specialized forums. 
+                        Regular practice and building portfolio projects will significantly accelerate your progress.
+                    </p>
+                </div>
+            </div>`;
+            
+            return roadmapHTML;
+        }
+        
+        // Interview Questions Generator Simulation
+        const generateQuestionsBtn = document.getElementById('generateQuestionsBtn');
+        const questionsPlaceholder = document.getElementById('questionsPlaceholder');
+        const interviewQuestions = document.getElementById('interviewQuestions');
+        const downloadQuestionsBtn = document.getElementById('downloadQuestionsBtn');
+        const copyQuestionsBtn = document.getElementById('copyQuestionsBtn');
+        
+        generateQuestionsBtn.addEventListener('click', () => {
+            const jobTitle = document.getElementById('interviewJobTitle').value.trim();
+            const skills = document.getElementById('interviewSkills').value.trim();
+            const experience = document.getElementById('experienceSummary').value.trim();
+            
+            if (!jobTitle) {
+                alert('Please enter the target job title!');
+                return;
+            }
+            
+            questionsPlaceholder.textContent = 'Generating personalized interview questions...';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                // Generate interview questions based on input
+                const questionsContent = generateInterviewQuestions(jobTitle, skills, experience);
+                
+                // Display the interview questions
+                interviewQuestions.innerHTML = questionsContent;
+                questionsPlaceholder.classList.add('hidden');
+                interviewQuestions.classList.remove('hidden');
+                
+                // Enable the download and copy buttons
+                downloadQuestionsBtn.disabled = false;
+                copyQuestionsBtn.disabled = false;
+            }, 2000);
+        });
+        
+        function generateInterviewQuestions(jobTitle, skills, experience) {
+            // This function simulates AI question generation
+            
+            const technicalQuestions = [];
+            const behavioralQuestions = [];
+            const situationalQuestions = [];
+            
+            // Generate technical questions based on job title and skills
+            if (jobTitle.toLowerCase().includes('developer') || jobTitle.toLowerCase().includes('engineer')) {
+                technicalQuestions.push('Explain the difference between REST and GraphQL APIs and when you would use each.');
+                technicalQuestions.push('Describe your experience with CI/CD pipelines and how you\'ve implemented them in previous projects.');
+                technicalQuestions.push('How do you approach testing in your development process? What types of tests do you write?');
+                
+                if (skills.toLowerCase().includes('react')) {
+                    technicalQuestions.push('Explain the React component lifecycle and hooks. How do you manage side effects in functional components?');
+                    technicalQuestions.push('How do you optimize performance in a React application? Give specific examples of techniques you\'ve used.');
+                }
+                
+                if (skills.toLowerCase().includes('node')) {
+                    technicalQuestions.push('Describe how you would design a scalable microservice architecture using Node.js.');
+                    technicalQuestions.push('How do you handle error handling and logging in a Node.js application?');
+                }
+            } else if (jobTitle.toLowerCase().includes('data') || jobTitle.toLowerCase().includes('analyst')) {
+                technicalQuestions.push('Explain the difference between supervised and unsupervised learning with examples.');
+                technicalQuestions.push('How do you approach feature selection and engineering in a machine learning project?');
+                technicalQuestions.push('Describe a challenging data cleaning task you faced and how you solved it.');
+            } else if (jobTitle.toLowerCase().includes('product') || jobTitle.toLowerCase().includes('manager')) {
+                technicalQuestions.push('How do you prioritize features in a product roadmap?');
+                technicalQuestions.push('Explain your process for gathering and incorporating user feedback.');
+                technicalQuestions.push('Describe how you measure the success of a product launch.');
+            }
+            
+            // Generate behavioral questions
+            behavioralQuestions.push('Describe a situation where you had to meet a tight deadline. How did you manage your time and resources?');
+            behavioralQuestions.push('Tell me about a time when you had to resolve a conflict within your team.');
+            behavioralQuestions.push('Give an example of a challenging problem you solved. What was your approach?');
+            behavioralQuestions.push('Describe a time when you had to adapt to significant changes in the workplace.');
+            behavioralQuestions.push('Tell me about your greatest professional achievement and why it was significant.');
+            
+            // Generate situational questions
+            situationalQuestions.push(`How would you handle a situation where your team is falling behind on an important project deadline?`);
+            situationalQuestions.push(`If you discovered a critical bug in production code right before a major release, what steps would you take?`);
+            situationalQuestions.push(`How would you approach onboarding to a new team with an established codebase?`);
+            
+            // Generate HTML for the questions
+            let questionsHTML = '<div class="space-y-8">';
+            
+            // Add technical questions
+            questionsHTML += `
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-red-800">Technical Questions</h3>
+                    <div class="space-y-4">
+                        ${technicalQuestions.map((q, i) => `
+                            <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                                <p class="font-medium">${i+1}. ${q}</p>
+                                <p class="text-sm text-red-700 mt-1 italic">Tip: Prepare concrete examples from your experience to illustrate your technical knowledge.</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add behavioral questions
+            questionsHTML += `
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-800">Behavioral Questions</h3>
+                    <div class="space-y-4">
+                        ${behavioralQuestions.map((q, i) => `
+                            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                <p class="font-medium">${i+1}. ${q}</p>
+                                <p class="text-sm text-blue-700 mt-1 italic">Tip: Use the STAR method (Situation, Task, Action, Result) to structure your answers.</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add situational questions
+            questionsHTML += `
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-green-800">Situational Questions</h3>
+                    <div class="space-y-4">
+                        ${situationalQuestions.map((q, i) => `
+                            <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+                                <p class="font-medium">${i+1}. ${q}</p>
+                                <p class="text-sm text-green-700 mt-1 italic">Tip: Demonstrate your problem-solving process and decision-making abilities.</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add interview preparation tips
+            questionsHTML += `
+                <div class="p-5 bg-purple-50 border border-purple-200 rounded-lg">
+                    <h3 class="text-xl font-bold mb-2 text-purple-800">Interview Preparation Tips</h3>
+                    <ul class="list-disc list-inside space-y-1 text-purple-700">
+                        <li>Research the company thoroughly before your interview</li>
+                        <li>Prepare questions to ask the interviewer that demonstrate your interest</li>
+                        <li>Practice answering these questions out loud or with a friend</li>
+                        <li>Be prepared with examples that highlight your achievements</li>
+                        <li>Follow up with a thank you email after the interview</li>
+                    </ul>
+                </div>
+            `;
+            
+            questionsHTML += '</div>';
+            
+            return questionsHTML;
+        }
+        
+        copyQuestionsBtn.addEventListener('click', () => {
+            const content = interviewQuestions.textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Interview questions copied to clipboard!');
+            });
+        });
+        
+        // PDF Export Simulation (in a real app, would use a PDF generation library)
+        function simulateDownloadPDF(buttonId) {
+            const button = document.getElementById(buttonId);
+            button.addEventListener('click', () => {
+                alert('In a fully implemented version, this would generate and download a PDF of the content. The website is designed to be PDF-friendly for direct browser printing.');
+            });
+        }
+        
+        simulateDownloadPDF('downloadResumeBtn');
+        simulateDownloadPDF('downloadCareerPathBtn');
+        simulateDownloadPDF('downloadRoadmapBtn');
+        simulateDownloadPDF('downloadQuestionsBtn');
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
